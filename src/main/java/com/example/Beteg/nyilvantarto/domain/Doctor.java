@@ -1,4 +1,4 @@
 package com.example.Beteg.nyilvantarto.domain;
 
-public class doctors {
+public class Doctor {
 }

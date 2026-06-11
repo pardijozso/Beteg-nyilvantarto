@@ -1,22 +1,24 @@
 package com.example.Beteg.nyilvantarto.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import org.springframework.stereotype.Controller;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class patients {
+@Entity
+@Table(name = "patients")
+public class Patient {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     @Column(name = "birth_place")
     private String birthPlace;
 
-    @Controller(name = "birth_date")
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @Column(name = "mother_name")
@@ -32,6 +34,6 @@ public class patients {
 
     //Kapcsolat a notes táblával
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notes> notes;
+    private List<Note> notes;
 
 }
