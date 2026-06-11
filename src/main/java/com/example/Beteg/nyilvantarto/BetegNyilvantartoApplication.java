@@ -8,5 +8,4 @@ public class BetegNyilvantartoApplication {
 public static void main(String[] args) {
 SpringApplication.run(BetegNyilvantartoApplication.class, args);
 }
-
 }
