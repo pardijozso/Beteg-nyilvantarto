@@ -1,0 +1,2 @@
+insert into PATIENTS(id, name, birtPlace, birthDate, motherName, address, diagnosis, createdAt, notes)
+vaues ('1', 'Molnár Péter', 'Miskolc', '2000-01-01', 'Mrúz Tímea', '3900 Szerencs, fő út 1', 'nátha','2026-06-12', 'notes');

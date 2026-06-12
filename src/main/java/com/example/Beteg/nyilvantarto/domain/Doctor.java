@@ -20,6 +20,6 @@ public class Doctor {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Patient> patients;
+  //  @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+  //  private List<Patient> patients;
 }
