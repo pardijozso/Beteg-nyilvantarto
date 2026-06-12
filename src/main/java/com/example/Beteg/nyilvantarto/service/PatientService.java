@@ -24,12 +24,12 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public void save(Patient patient){
-        patientRepository.save(patient);
+    public Patient save(Patient patient){
+        return patientRepository.save(patient);
     }
 
-    public void edit(Patient patient){
-        patientRepository.save(patient);
+    public Patient edit(Patient patient){
+        return patientRepository.save(patient);
     }
 
     public Patient findById(Long id){
