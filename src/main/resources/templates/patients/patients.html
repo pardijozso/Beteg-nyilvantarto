@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>MediTrack - Betegek</title>
+</head>
+
+<body>
+
+<!-- HEADER INJECT -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+
+  <h2>A páciensek listája</h2>
+
+  <table class="table table-striped">
+
+    <!-- SEARCH + ACTION ROW -->
+    <tr>
+      <th>
+        <form method="get" th:action="@{/patients/list}" class="d-flex">
+          <input type="search"
+                 name="search"
+                 class="form-control"
+                 placeholder="Keresés..."
+                 th:value="${search}">
+        </form>
+      </th>
+
+      <th>
+        <a th:href="@{/patients/list}" class="btn btn-secondary">
+          Keresés
+        </a>
+      </th>
+
+      <th>
+        <a th:href="@{/patients/new}" class="btn btn-success">
+          Hozzáadás
+        </a>
+      </th>
+
+
+
+      <th></th>
+    </tr>
+
+    <!-- HEADER -->
+    <tr>
+      <th>Név</th>
+      <th>Születési idő</th>
+      <th>Születési hely</th>
+      <th>Műveletek</th>
+    </tr>
+
+    <!-- DATA ROWS -->
+    <tr th:each="patient : ${patients}">
+
+      <td>
+        <a th:href="@{'/patients/' + ${patient.id}}"
+           th:text="${patient.name}">
+        </a>
+      </td>
+
+      <td th:text="${patient.birthDate}"></td>
+      <td th:text="${patient.birthPlace}"></td>
+
+      <!-- ACTIONS -->
+      <td>
+        <div class="d-flex gap-2">
+
+          <!-- EDIT -->
+          <a th:href="@{'/patients/edit/' + ${patient.id}}"
+             class="btn btn-primary btn-sm">
+            Szerkesztés
+          </a>
+
+          <!-- DELETE -->
+          <a th:href="@{'/patients/delete/' + ${patient.id}}"
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Biztosan törlöd ezt a pácienst?');">
+            Törlés
+          </a>
+
+        </div>
+      </td>
+
+    </tr>
+
+  </table>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

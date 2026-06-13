@@ -28,8 +28,20 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
-    public Patient edit(Patient patient){
-        return patientRepository.save(patient);
+    public Patient edit(Patient patient) {
+
+        Patient existing = patientRepository.findById(patient.getId())
+                .orElseThrow(() -> new NoSuchEntityException("Patient not found"));
+
+        existing.setName(patient.getName());
+        existing.setBirthPlace(patient.getBirthPlace());
+        existing.setBirthDate(patient.getBirthDate());
+        existing.setMotherName(patient.getMotherName());
+        existing.setAddress(patient.getAddress());
+        existing.setDiagnosis(patient.getDiagnosis());
+
+        // FONTOS: notes-t NEM bántjuk!
+        return patientRepository.save(existing);
     }
 
     public Patient findById(Long id){

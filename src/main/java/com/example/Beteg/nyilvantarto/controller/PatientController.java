@@ -39,7 +39,14 @@ public class PatientController {
     return "redirect:/patients/list"; // Redirect to /patients/list after saving
     }
 
-    //GET: Show Edit Patient Page
+    //GET: Show Patient Page
+    @GetMapping("/{id}")
+    public String viewPatientForm(@PathVariable Long id, Model model) {
+        Patient patient = patientService.findById(id);
+        model.addAttribute("patient", patient);
+        return "patients/view-patient";
+    }
+
     @GetMapping("/edit/{id}")
     public String editPatientForm(@PathVariable Long id, Model model){
         Patient patient = patientService.findById(id);
@@ -54,8 +61,8 @@ public class PatientController {
         return "redirect:/patients/list";// Redirect to /patients/list after updating
     }
 
-    //POST: Delete Patient
-    @PostMapping("/delete/{id}")
+    //Get: Delete Patient
+    @GetMapping("/delete/{id}")
     public String deletePatient(@PathVariable Long id){
         patientService.deleteById(id);
         return "redirect:/patients/list";// Redirect to /patients/list after deleting
