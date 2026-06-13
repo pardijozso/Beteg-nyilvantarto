@@ -58,6 +58,13 @@ public class PatientService {
     }
 
 
+    public List<Patient> searchPatients(String searc){
+        if (searc == null || searc.isBlank()){
+            return patientRepository.findAll();
+        }
+        return  patientRepository.findByNameContainingIgnoreCase(searc);
+    }
+
 
 
 

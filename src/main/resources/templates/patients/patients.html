@@ -16,28 +16,79 @@
 
 <div class="container">
 
-  <h2>A páciensek listája</h2>
+  <h2>Az ügyfelek listája</h2>
 
   <table class="table table-striped">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
 
+        <!-- LEFT: ADD BUTTON -->
+        <a class="btn btn-success me-3"
+           th:href="@{/patients/new}">
+          Hozzáadás
+        </a>
+
+        <!-- TOGGLER (mobil) -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample09"
+                aria-controls="navbarsExample09"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- RIGHT SIDE -->
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+
+          <!-- pushes search to right -->
+          <ul class="navbar-nav me-auto"></ul>
+
+          <!-- SEARCH FORM -->
+          <form class="d-flex gap-2"
+                method="get"
+                th:action="@{/patients/list}">
+
+            <input class="form-control"
+                   type="search"
+                   name="search"
+                   placeholder="Keresés..."
+                   th:value="${search}"
+                   style="width: 250px;">
+
+            <button class="btn btn-primary" type="submit">
+              Keresés
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </nav>
     <!-- SEARCH + ACTION ROW -->
-    <tr>
+    <!--<tr>
       <th>
-        <form method="get" th:action="@{/patients/list}" class="d-flex">
+        <form method="get" th:action="@{/patients/list}" class="d-flex gap-2">
+
           <input type="search"
                  name="search"
                  class="form-control"
                  placeholder="Keresés..."
                  th:value="${search}">
+
+          <button type="submit" class="btn btn-primary">
+            Keresés
+          </button>
+
         </form>
       </th>
 
-      <th>
+     &lt;!&ndash; <th>
         <a th:href="@{/patients/list}" class="btn btn-secondary">
           Keresés
         </a>
       </th>
-
+&ndash;&gt;
       <th>
         <a th:href="@{/patients/new}" class="btn btn-success">
           Hozzáadás
@@ -47,7 +98,7 @@
 
 
       <th></th>
-    </tr>
+    </tr>-->
 
     <!-- HEADER -->
     <tr>

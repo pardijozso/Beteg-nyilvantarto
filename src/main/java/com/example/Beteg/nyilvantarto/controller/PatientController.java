@@ -18,11 +18,20 @@ public class PatientController {
     private PatientService patientService;
 
     //GET: List all petients (responds to patients/list
-    @GetMapping("/list")
+   /* @GetMapping("/list")
     public String getAllPatients(Model model){
         List<Patient> patients = patientService.getAllPatients();
         model.addAttribute("patients", patients);
         return "patients/patients"; //Template location in patients directory
+    }*/
+
+    @GetMapping("/list")
+    public String getAllPatients(@RequestParam(required = false) String search, Model model){
+        List<Patient> patients = patientService.searchPatients(search);
+        model.addAttribute("patients", patients);
+        model.addAttribute("search", search);
+
+        return "patients/patients";
     }
 
     //GET: Show Create Author Page
