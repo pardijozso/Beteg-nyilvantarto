@@ -1,15 +1,11 @@
 package com.example.Beteg.nyilvantarto.service;
 
-import com.example.Beteg.nyilvantarto.domain.Note;
 import com.example.Beteg.nyilvantarto.domain.Patient;
 import com.example.Beteg.nyilvantarto.exception.NoSuchEntityException;
 import com.example.Beteg.nyilvantarto.repository.PatientRepository;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +16,11 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public List<Patient> getAllPatients(){
+    public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
 
-    public Patient save(Patient patient){
+    public Patient save(Patient patient) {
         return patientRepository.save(patient);
     }
 
@@ -44,22 +40,22 @@ public class PatientService {
         return patientRepository.save(existing);
     }
 
-    public Patient findById(Long id){
-    Optional <Patient> optionalPatient = patientRepository.findById(id);
+    public Patient findById(Long id) {
+        Optional<Patient> optionalPatient = patientRepository.findById(id);
         if (optionalPatient.isPresent()) {
             return optionalPatient.get();
-        }else {
+        } else {
             throw new NoSuchEntityException("There was no patient with id: " + id);
         }
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         patientRepository.deleteById(id);
     }
 
 
-    public List<Patient> searchPatients(String searc){
-        if (searc == null || searc.isBlank()){
+    public List<Patient> searchPatients(String searc) {
+        if (searc == null || searc.isBlank()) {
             return patientRepository.findAll();
         }
         return  patientRepository.findByNameContainingIgnoreCase(searc);
