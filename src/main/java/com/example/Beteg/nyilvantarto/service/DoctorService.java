@@ -24,7 +24,11 @@ public class DoctorService {
     }
 
     public Doctor edit(Doctor doctor) {
-        return doctorRepository.save(doctor);
+        Doctor existing = doctorRepository.findById(doctor.getId())
+                .orElseThrow(() -> new NoSuchEntityException("There was no doctor with id: " + doctor.getId()));
+
+        existing.setName(doctor.getName());
+        return doctorRepository.save(existing);
     }
 
     public Doctor findById(Long id) {
