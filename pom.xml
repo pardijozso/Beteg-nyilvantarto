@@ -141,7 +141,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/exception/*</exclude>
-                        <exclude>**/DemoApplication.class</exclude>
+                        <exclude>**/BetegNyilvantartoApplication.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
