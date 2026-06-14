@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>MediTrack - Betegek</title>
+</head>
+
+<body>
+
+<!-- HEADER INJECT -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+
+  <h2>Az ügyfelek listája</h2>
+
+  <table class="table table-striped">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+
+        <!-- LEFT: ADD BUTTON -->
+        <a class="btn btn-success me-3"
+           th:href="@{/patients/new}">
+          Hozzáadás
+        </a>
+
+        <!-- TOGGLER (mobil) -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample09"
+                aria-controls="navbarsExample09"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- RIGHT SIDE -->
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+
+          <!-- pushes search to right -->
+          <ul class="navbar-nav me-auto"></ul>
+
+          <!-- SEARCH FORM -->
+          <form class="d-flex gap-2"
+                method="get"
+                th:action="@{/patients/list}">
+
+            <input class="form-control"
+                   type="search"
+                   name="search"
+                   placeholder="Keresés..."
+                   th:value="${search}"
+                   style="width: 250px;">
+
+            <button class="btn btn-primary" type="submit">
+              Keresés
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+    </nav>
+
+    <tr>
+      <th>Név</th>
+      <th>Születési idő</th>
+      <th>Születési hely</th>
+      <th>Műveletek</th>
+    </tr>
+
+    <!-- DATA ROWS -->
+    <tr th:each="patient : ${patients}">
+
+      <td>
+        <a th:href="@{'/patients/' + ${patient.id}}"
+           th:text="${patient.name}">
+        </a>
+      </td>
+
+      <td th:text="${patient.birthDate}"></td>
+      <td th:text="${patient.birthPlace}"></td>
+
+      <!-- ACTIONS -->
+      <td>
+        <div class="d-flex gap-2">
+
+          <!-- EDIT -->
+          <a th:href="@{'/patients/edit/' + ${patient.id}}"
+             class="btn btn-primary btn-sm">
+            Szerkesztés
+          </a>
+
+          <!-- DELETE -->
+          <a th:href="@{'/patients/delete/' + ${patient.id}}"
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Biztosan törlöd ezt a pácienst?');">
+            Törlés
+          </a>
+
+        </div>
+      </td>
+
+    </tr>
+
+  </table>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
