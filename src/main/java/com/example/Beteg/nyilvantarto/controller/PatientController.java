@@ -17,14 +17,6 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    //GET: List all petients (responds to patients/list
-   /* @GetMapping("/list")
-    public String getAllPatients(Model model){
-        List<Patient> patients = patientService.getAllPatients();
-        model.addAttribute("patients", patients);
-        return "patients/patients"; //Template location in patients directory
-    }*/
-
     @GetMapping("/list")
     public String getAllPatients(@RequestParam(required = false) String search, Model model){
         List<Patient> patients = patientService.searchPatients(search);
@@ -53,6 +45,7 @@ public class PatientController {
     public String viewPatientForm(@PathVariable Long id, Model model) {
         Patient patient = patientService.findById(id);
         model.addAttribute("patient", patient);
+        model.addAttribute("notes", patient.getNotes());
         return "patients/view-patient";
     }
 
