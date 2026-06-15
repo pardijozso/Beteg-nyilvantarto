@@ -91,7 +91,10 @@
               <small class="text-muted"
                      th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}">
               </small>
-
+              <small>
+                Created by:
+                <span th:text="${note.doctor.name}"></span>
+              </small>
 
               <a th:href="@{/notes/delete/{id}(id=${note.id})}"
                  class="btn btn-danger btn-sm">
