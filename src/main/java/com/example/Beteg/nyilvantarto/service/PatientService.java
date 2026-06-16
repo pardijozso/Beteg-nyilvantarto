@@ -61,6 +61,9 @@ public class PatientService {
         return  patientRepository.findByNameContainingIgnoreCase(searc);
     }
 
+    public List<Patient> findByDoctorId(Long doctorId) {
+        return patientRepository.findByDoctorId(doctorId);
+    }
 
 
 

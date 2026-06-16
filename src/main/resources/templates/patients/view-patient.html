@@ -64,20 +64,21 @@
       <!-- RIGHT SIDE: POSTS -->
       <div class="bg-body-tertiary border rounded-3 p-3">
         <!-- FORM -->
-        <form th:action="@{/notes/save}" method="post">
-
-
-          <input type="hidden" name="patientId" th:value="${patient.id}" />
-
-          <div class="mb-3">
-            <label class="form-label">Bejegyzés létrehozása</label>
-
-            <textarea class="form-control" name="content" rows="3"></textarea>
-            <!-- TODO: th:field="*{content}" -->
+          <div th:if="${session.doctorId == null}" class="alert alert-warning text-center fw-bold mb-3" role="alert">
+              Új bejegyzés létrehozásához kérjük, kérlek jelentkezz be!
           </div>
 
-          <button type="submit" class="btn btn-primary">Mentés</button>
-        </form>
+          <form th:if="${session.doctorId != null}" th:action="@{/notes/save}" method="post">
+
+              <input type="hidden" name="patientId" th:value="${patient.id}" />
+
+              <div class="mb-3">
+                  <label class="form-label">Bejegyzés létrehozása</label>
+                  <textarea class="form-control" name="content" rows="3"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Mentés</button>
+          </form>
 
         <!-- POSTS LIST -->
         <div class="mt-4">

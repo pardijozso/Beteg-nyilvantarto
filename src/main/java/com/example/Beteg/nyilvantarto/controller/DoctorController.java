@@ -5,7 +5,11 @@ import com.example.Beteg.nyilvantarto.repository.DoctorRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -39,9 +43,9 @@ public class DoctorController {
     }
 
     @GetMapping("select/{id}")
-    public String selectDoctor(@PathVariable Long id, HttpSession session){
+    public String selectDoctor(@PathVariable Long id, HttpSession session) {
         session.setAttribute("doctorId", id);
-        return "redirect:/patients/list";
+        return "redirect:/patients/list?doctorId=" + id;
     }
 
 
