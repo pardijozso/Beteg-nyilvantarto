@@ -1,7 +1,7 @@
 package com.example.Beteg.nyilvantarto.controller;
 
 import com.example.Beteg.nyilvantarto.domain.Doctor;
-import com.example.Beteg.nyilvantarto.repository.DoctorRepository;
+import com.example.Beteg.nyilvantarto.service.DoctorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +17,15 @@ import java.util.List;
 @RequestMapping("/doctors")
 public class DoctorController {
 
-    private final DoctorRepository doctorRepository;
+    private final DoctorService doctorService;
 
-    public DoctorController(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
+    public DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
     }
 
     @GetMapping
     public String listDoctors(Model model) {
-        List<Doctor> doctors = doctorRepository.findAll();
+        List<Doctor> doctors = doctorService.getAllDoctors();
         model.addAttribute("doctors", doctors);
         return "doctors/doctor-list";
     }
@@ -38,7 +38,7 @@ public class DoctorController {
 
     @PostMapping
     public String saveDoctor(@ModelAttribute("doctor") Doctor doctor) {
-        doctorRepository.save(doctor);
+        doctorService.save(doctor);
         return "redirect:/doctors";
     }
 

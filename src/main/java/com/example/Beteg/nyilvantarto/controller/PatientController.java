@@ -2,7 +2,7 @@ package com.example.Beteg.nyilvantarto.controller;
 
 
 import com.example.Beteg.nyilvantarto.domain.Patient;
-import com.example.Beteg.nyilvantarto.repository.DoctorRepository;
+import com.example.Beteg.nyilvantarto.service.DoctorService;
 import com.example.Beteg.nyilvantarto.service.PatientService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PatientController {
     private PatientService patientService;
 
     @Autowired
-    private DoctorRepository doctorRepository;
+    private DoctorService doctorService;
 
     @GetMapping("/list")
     public String getAllPatients(@RequestParam(required = false) String search,
@@ -47,7 +47,7 @@ public class PatientController {
     @GetMapping("/new")
     public String createPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
-        model.addAttribute("doctors", doctorRepository.findAll());
+        model.addAttribute("doctors", doctorService.getAllDoctors());
         return "patients/create-patient"; //Template for creating patient
     }
 

@@ -182,7 +182,7 @@ public class PatientServiceTest {
     }
 
     @Test
-    void deleteById_ShouldCallRepositoryDelete() {
+    void deleteByIdShouldCallRepositoryDelete() {
         // Given
         Long patientId = 1L;
 
@@ -247,4 +247,44 @@ public class PatientServiceTest {
         verify(patientRepositoryMock, times(1)).findByNameContainingIgnoreCase(searchText);
         verify(patientRepositoryMock, never()).findAll();
     }
+
+    @Test
+    void findByDoctorIdHappyPath() {
+
+        //GIVEN
+        Long doctorId = 1L;
+
+        List<Patient> expectedPatients = List.of(
+
+                Patient.builder()
+                        .id(1L)
+                        .name("Nagy János")
+                        .birthPlace("Szolnok")
+                        .birthDate(LocalDate.parse("1990-01-01"))
+                        .motherName("Szabó Mária")
+                        .address("Budapest, Fő utca 1.")
+                        .diagnosis("Gyógyult")
+                        .build(),
+
+                Patient.builder()
+                        .id(2L)
+                        .name("Kiss Péter")
+                        .birthPlace("Debrecen")
+                        .birthDate(LocalDate.parse("1995-01-01"))
+                        .motherName("Szabó Valaki")
+                        .address("Kisújszállás, Fő utca 12.")
+                        .diagnosis("Idegbeteg")
+                        .build()
+        );
+
+        when(patientRepositoryMock.findByDoctorId(doctorId)).thenReturn(expectedPatients);
+
+        //WHEN
+        List<Patient> result = underTest.findByDoctorId(doctorId);
+
+        //THEN
+        Assertions.assertIterableEquals(expectedPatients, result);
+
+    }
+
 }
