@@ -2,7 +2,9 @@ package com.example.Beteg.nyilvantarto.controller;
 
 
 import com.example.Beteg.nyilvantarto.domain.Patient;
+import com.example.Beteg.nyilvantarto.repository.DoctorRepository;
 import com.example.Beteg.nyilvantarto.service.PatientService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,19 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private DoctorRepository doctorRepository;
+
     @GetMapping("/list")
-    public String getAllPatients(@RequestParam(required = false) String search, Model model) {
-        List<Patient> patients = patientService.searchPatients(search);
+    public String getAllPatients(@RequestParam(required = false) String search,
+                                 @RequestParam(required = false) Long doctorId, Model model) {
+        List<Patient> patients;
+        if (doctorId != null) {
+            patients = patientService.findByDoctorId(doctorId);
+        } else {
+            patients = patientService.searchPatients(search);
+        }
+
         model.addAttribute("patients", patients);
         model.addAttribute("search", search);
 
@@ -35,6 +47,7 @@ public class PatientController {
     @GetMapping("/new")
     public String createPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
+        model.addAttribute("doctors", doctorRepository.findAll());
         return "patients/create-patient"; //Template for creating patient
     }
 
@@ -73,6 +86,13 @@ public class PatientController {
     public String deletePatient(@PathVariable Long id) {
         patientService.deleteById(id);
         return "redirect:/patients/list"; // Redirect to /patients/list after deleting
+    }
+
+    @GetMapping("/clear")
+    public String listPatientsClean(HttpSession session) {
+        session.removeAttribute("doctorId");
+
+        return "redirect:/patients/list";
     }
 
 

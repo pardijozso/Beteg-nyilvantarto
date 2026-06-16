@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>MediTrack - Orvosok</title>
+</head>
+
+<body>
+
+<!-- HEADER INJECT -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+
+    <h2>Az orvosok listája</h2>
+
+    <table class="table table-striped">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <!-- LEFT: ADD BUTTON -->
+                <a class="btn btn-success me-3"
+                   th:href="@{/doctors/new}">
+                    Hozzáadás
+                </a>
+
+                <!-- TOGGLER (mobil) -->
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarsExample09"
+                        aria-controls="navbarsExample09"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+            </div>
+        </nav>
+
+        <tr>
+            <th>Név</th>
+            <th>Műveletek</th>
+        </tr>
+
+        <!-- DATA ROWS -->
+        <tr th:each="doctor : ${doctors}">
+            <td th:text="${doctor.name}"></td>
+
+            <td>
+                <a th:href="@{/doctors/select/{id}(id=${doctor.id})}"
+                   class="btn btn-primary">
+                    Belépés
+                </a>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

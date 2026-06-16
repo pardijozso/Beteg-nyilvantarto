@@ -2,10 +2,12 @@ package com.example.Beteg.nyilvantarto.controller;
 
 import com.example.Beteg.nyilvantarto.domain.Doctor;
 import com.example.Beteg.nyilvantarto.repository.DoctorRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,13 +27,13 @@ public class DoctorController {
     public String listDoctors(Model model) {
         List<Doctor> doctors = doctorRepository.findAll();
         model.addAttribute("doctors", doctors);
-        return "doctor-list"; // Ez legyen a html neve
+        return "doctors/doctor-list";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("doctor", new Doctor());
-        return "doctor-form";
+        return "doctors/create-doctor";
     }
 
     @PostMapping
@@ -39,4 +41,14 @@ public class DoctorController {
         doctorRepository.save(doctor);
         return "redirect:/doctors";
     }
+
+    @GetMapping("select/{id}")
+    public String selectDoctor(@PathVariable Long id, HttpSession session) {
+        session.setAttribute("doctorId", id);
+        return "redirect:/patients/list?doctorId=" + id;
+    }
+
+
 }
+
+
